@@ -1,0 +1,25 @@
+.input-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.label-container{
+    font-weight: 500;
+    padding: 0.15rem 0.75rem;
+}
+
+.input-internal{
+    background-color: white;
+    height: 2.25rem;
+    width: 300px;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-weight: 500;
+    color: #444341;
+}
+
+.input-internal:active,.input-internal:focus{
+    outline: none;
+}

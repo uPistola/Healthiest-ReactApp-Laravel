@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+html, body, #root, #defaultLayout, #guestLayout {
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+}
+
+body {
+    font-family: "Montserrat";
+    font-optical-sizing: auto;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    color: #262522;
+    background-color: #F0EBE1;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.default-icon{
+    background-color: #cccbc3;
+    color: #262522;
+    padding: 0.5rem;
+    border-radius: 2rem;
+    cursor: pointer;
+}
+
+.default-icon:hover{
+    background-color: #c9c6be;
+}
+
+
+.btn-submit{
+    width: 6rem;
+    height: 2rem;
+    background-color: #262522;
+    color: white;
+    border-radius: 2rem;
+    font-weight: 600;
+}

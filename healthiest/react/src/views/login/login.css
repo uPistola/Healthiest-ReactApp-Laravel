@@ -1,0 +1,55 @@
+h2{
+    font-size: 40px;
+    margin-bottom: 3rem;
+}
+
+.signup{
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 8rem;
+}
+
+.forgot-pass:hover{
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.control{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-footer{
+    width: 100%;
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.error{
+    color: red;
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 30rem;
+}
+
+.change-page:hover{
+    font-weight: 600;
+    cursor: pointer;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
