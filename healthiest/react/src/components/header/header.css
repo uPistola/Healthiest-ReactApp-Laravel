@@ -31,14 +31,6 @@ header{
     height: 3rem;
 }
 
-.nav-bar{
-    width: 10rem;
-    max-width: 10rem;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .right-menu{
     height: 100%;
@@ -96,7 +88,6 @@ li a{
     font-weight: 700;
     text-decoration: none;
     opacity: 0.55;
-    padding: 0.2rem 0.75rem;
 }
 
 li{
@@ -108,6 +99,22 @@ li{
     border-bottom: 3px solid #EE6352;
 }
 
+.nav-bar{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-bar a:hover{
+    opacity: 1;
+}
+
+.nav-bar ul{
+    display: flex;
+    gap: 1.5rem;
+}
+
 .closed{
     padding: 0;
     border: none;
@@ -117,4 +124,12 @@ li{
     transition: ease-in-out;
     width: 0;
     display: none;
+}
+
+.subscribe-btn:hover{
+    background-color: #585855;
+}
+
+.subscribe-btn:active{
+    transform: scale(0.95);
 }

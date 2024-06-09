@@ -9,6 +9,15 @@
     padding: 0.15rem 0.75rem;
 }
 
+.form-container {
+    transition: transform 0.3s ease;
+}
+
+.form-container.scale {
+    transform: scale(1.05);
+}
+
+
 .input-internal{
     background-color: white;
     height: 2.25rem;

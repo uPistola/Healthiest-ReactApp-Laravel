@@ -5,6 +5,7 @@ import PasswordInput from "../../components/passInput/PasswordInput";
 import "../login/login.css";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../../context/ContextProvider";
+import { Navigate } from "react-router-dom";
 
 export default function Login() {
     const [isLogin, setIsLogin] = useState(true);
@@ -14,8 +15,8 @@ export default function Login() {
 
     const nameRef = useRef();
     const emailRef = useRef();
-    const passRef = useRef();
-    const passConfirmRef = useRef();
+    const passwordRef = useRef();
+    const password_confirmRef = useRef();
 
     const {setUser,setToken} = useStateContext();
 
@@ -35,18 +36,23 @@ export default function Login() {
 
     const handleRegisterSubmit = (e) => {
         e.preventDefault();
-        if (validatePassword(password, confirmPassword)) {
-            handleSignup(e)
+        if (!validatePassword(password, confirmPassword)) {
+            return false
         }
+        handleSignup(e)
     };
+
+    const handleLogin = () => {
+        <Navigate to="/dashboard" />
+    }
 
     const handleSignup = (ev) => {
         ev.preventDefault();
         const payload = {
             name: nameRef.current.value,
             email: emailRef.current.value,
-            pass: passRef.current.value,
-            passConfirm: passConfirmRef.current.value
+            password: passwordRef.current.value,
+            //password_confirm: password_confirmRef.current.value
         };
         console.log(payload)
         axiosClient.post('/signup',payload)
@@ -73,7 +79,7 @@ export default function Login() {
                             <Input 
                                 label="Email" 
                                 placeholder="Digite seu email..."
-                                type="text"
+                                type="email"
                                 name="email"
                                 ref={emailRef}
                             />
@@ -88,7 +94,7 @@ export default function Login() {
                         <span className="forgot-pass">Esqueceu sua senha?</span>
                         <div className="signup-footer">
                             <span className="change-page" onClick={() => setIsLogin(false)}>Criar Conta</span>
-                            <button className="btn-submit" onClick={() => test()}>Entrar</button>
+                            <button className="btn-submit" onClick={() => handleLogin}>Entrar</button>
                         </div>
                     </div>
                 </div>
@@ -96,11 +102,11 @@ export default function Login() {
                 <div className="signup">
                     <div className="control">
                         <h2>REGISTRAR</h2>
-                        <form >
+                        <form onSubmit={handleRegisterSubmit}>
                             <Input 
                                 label="Email" 
                                 placeholder="Digite seu email..."
-                                type="text"
+                                type="email"
                                 name="email"
                                 ref={emailRef}
                             />
@@ -117,22 +123,22 @@ export default function Login() {
                                 name="senha"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                ref={passRef}
+                                ref={passwordRef}
                             />
                             <PasswordInput
                                 label="Confirmar Senha" 
                                 placeholder="Confirme sua senha..."
                                 name="confirmar_senha"
                                 value={confirmPassword}
-                                ref={passConfirmRef}
+                                ref={password_confirmRef}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />
-                            {passwordError && <p className="error"><i className="fa-solid fa-circle-exclamation"></i>{passwordError}</p>}
                             <div className="signup-footer">
                                 <span className="change-page" onClick={() => setIsLogin(true)}>Login</span>
-                                <button type="submit" className="btn-submit" onClick={handleRegisterSubmit}>Registrar</button>
+                                <button type="submit" className="btn-submit">Registrar</button>
                             </div>
                         </form>
+                        {passwordError && <p className="error"><i className="fa-solid fa-circle-exclamation"></i>{passwordError}</p>}
                     </div>
                 </div>
             )}

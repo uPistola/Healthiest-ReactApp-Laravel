@@ -1,0 +1,134 @@
+h1{
+    font-size: 40px;
+    width: 30rem;
+    margin-top: 3rem;
+}
+
+h2{
+    font-size: 24px;
+    font-weight: 500;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-form{
+    margin-top: 10rem;
+    display: flex;
+    align-items: center;
+    width: 80%;
+    height: 40vh;
+}
+
+.profile-img-container{
+    height: 25rem;
+    width: 20rem;
+    background-color: aliceblue;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 4rem;
+}
+
+.profile-img{
+    border: 1px solid black;
+    border-radius: 10rem;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.trash{
+    color: rgb(138, 12, 12);
+    font-size: 24px;
+}
+
+.pic-buttons{
+    width: 63%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.trash:hover{
+    color: rgba(138, 12, 12,0.75);
+}
+
+.trash:hover,.btn-change-pic:hover{
+    cursor: pointer;
+}
+
+.btn-change-pic{
+    background-color: #F29C33;
+    color: white;
+    border-radius: 0.25rem;
+    width: 7rem;
+    padding: 0.4rem;
+    border: none;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.btn-change-pic:hover{
+    background-color: #eea64f;
+}
+
+.btn-change-pic:active{
+    transform: scale(0.95);
+}
+
+.btn-change-pic:focus{
+    outline: none;
+}
+
+.profile-data{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 4rem;
+    margin-right: 4rem;
+}
+
+.profile-data-form{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4rem;
+}
+
+.saved{
+    height: 100%;
+    width: 30rem;
+    border-left: 1px solid rgb(168, 156, 156);
+    padding-left: 1rem;
+}
+
+.saved-card{
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(168, 156, 156,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.saved-card-img{
+    width: 5rem;
+    border-radius: 1rem;
+}
+
+.saved-card-text{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.saved-card:hover{
+    cursor: pointer;
+    background-color: #dbd9d5;
+}
