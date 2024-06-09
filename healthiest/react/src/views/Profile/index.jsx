@@ -2,8 +2,23 @@ import "../Profile/profile.css"
 import Header from "../../components/header"
 import Input from "../../components/input"
 import PasswordInput from "../../components/passInput/PasswordInput"
+import { useStateContext } from "../../context/ContextProvider"
+import axiosClient from "../../axios-client"
 
 const Profile = () => {
+
+    const {user, setUser,setToken} = useStateContext()
+
+    const onLogout = (ev) => {
+        ev.preventDefault()
+
+        axiosClient.post('/logout')
+            .then(() => {
+                setUser({})
+                setToken(null)
+            })
+    }
+
     return(
         <div className="content">
             <Header />
@@ -15,6 +30,7 @@ const Profile = () => {
                         <i className="fa-solid fa-trash trash"></i>
                         <button className="btn-change-pic">Trocar Foto</button>
                     </div>
+                    <div className="logout"><span onClick={onLogout}>Sair</span></div>
                 </div>
                 <div className="profile-data">
                     <form action="" className="profile-data-form">
@@ -23,11 +39,13 @@ const Profile = () => {
                                 type="text" 
                                 placeholder="Insira seu Email..."
                                 label="Email"
+                                value={user.email}
                             />
                             <Input 
                                 type="text" 
                                 placeholder="Insira seu Nome..."
                                 label="Nome"
+                                value={user.name}
                             />
                             <Input 
                                 type="text" 

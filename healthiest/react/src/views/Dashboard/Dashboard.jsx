@@ -10,7 +10,8 @@ const Dashboard = () => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const [input, setInput] = useState('');
-    const [response, setResponse] = useState('');
+    const [response, setResponse] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const generateRecipe = () => {
         setOpen(!open);
@@ -28,19 +29,22 @@ const Dashboard = () => {
   
     const handleSubmit = async (event) => {
       event.preventDefault();
-  
       try {
         const result = await axios.post('https://api.openai.com/v1/chat/completions', {
           model: 'gpt-3.5-turbo',
           messages: [
-            { role: 'system', content: 'Voce é um nutricionista e chef culinario, voce deve apenas responder perguntas relacionadas com comida, receitas, calorias, nutriçao e coisas relacionadas a alimentaçao no geral. Outras perguntas que nao estao relacionadas com estes conteudos voce deve dizer que nao pode responder.' },
+            { role: 'system', content: `
+                Você é um nutricionista e chef culinário. Sua tarefa é responder apenas perguntas relacionadas com comida, receitas, calorias, nutrição e tópicos relacionados à alimentação em geral. Para outras perguntas que não estejam relacionadas a esses temas, você deve responder que não pode fornecer essa informação.
+                Sempre retorne as respostas no formato de uma lista JSON contendo os seguintes campos: 'Ingredientes', 'PassoPasso', 'EquipamentosNecessários' e 'InformacaoNutricional'. Certifique-se de criar um JSON bem formatado, sem quebras de linha, com arrays corretamente delimitados por colchetes. Verifique cuidadosamente a abertura e fechamento de parênteses e o uso de vírgulas.
+                Se a pergunta não estiver relacionada a comida, receitas, calorias, nutrição ou tópicos similares, retorne uma mensagem de erro padrão no formato JSON: {'erro': 'Sua pergunta não está relacionada a alimentação e nutrição.'}
+                `},
             { role: 'user', content: input }
           ],
           
           max_tokens: 2000
         }, {
           headers: {
-            'Authorization': `Bearer`,
+            'Authorization': `Bearer Key`,
             'Content-Type': 'application/json'
           }
         });
@@ -51,6 +55,12 @@ const Dashboard = () => {
       }
     };
 
+    const handleCloseResp = () => {
+        setResponse(null)
+    }
+
+    var ObjectResp = response != null || response != "" ? JSON.parse(response) : null
+
     return (
         <div className="content">
             <Header />
@@ -60,14 +70,58 @@ const Dashboard = () => {
                 <div className="align"><button className="create-recipe" onClick={generateRecipe}>CRIE SUA RECEITA</button></div>
             </div>
             <div className={`input-chat adjust` + " " + (!open ? "hide" : null)}>
-                <form className="chat" onSubmit={handleSubmit}>
-                    <textarea className="text-area" onChange={(e) => setInput(e.target.value)}  placeholder="Escreva aqui a receita que deseja gerar, busque por ingredientes, tempo de preparo e dificuldade. Obs: Quanto mais detalhes inserir, melhor será a geração"></textarea>
-                    <div className="div-botao">
-                        <button className="btn-trans" type="submit">GERAR RECEITA</button>
-                    </div>
+                <form className="chat" onSubmit={handleSubmit} disabled={response != null}>
+                    <textarea disabled={response != null} className="text-area" onChange={(e) => setInput(e.target.value)} placeholder="Escreva aqui a receita que deseja gerar, busque por ingredientes, tempo de preparo e dificuldade. Obs: Quanto mais detalhes inserir, melhor será a geração"></textarea>
+                    {
+                        response == null ? (
+                            <div className="div-botao">
+                                <button className="btn-trans" type="submit">GERAR RECEITA</button>
+                            </div>
+                        ) : null 
+                    }
                 </form>
-                <div>
-                    {response}
+                {response != null ? (
+                    ObjectResp.erro != undefined ? (
+                        <div className="resp-container">
+                            <div className="close-resp"><i className="fa-regular fa-circle-xmark" onClick={handleCloseResp}></i></div>
+                            <h2 className="resp-title">Mensagem Imprópria!</h2>
+                            {ObjectResp.erro}
+                        </div>
+                    ) : (
+                        <div className="resp-container">
+                            <div className="close-resp"><i className="fa-regular fa-circle-xmark" onClick={handleCloseResp}></i></div>
+                            <h2 className="resp-title">Ingredientes:</h2>
+                            <ul className="resp-list">
+                                {ObjectResp.Ingredientes.map((ingrediente, index) => (
+                                    <li key={index}>{ingrediente}</li>
+                                ))}
+                            </ul>  
+                            <h2 className="resp-title">Equipamentos Necessários:</h2>
+                            <ul className="resp-list">
+                                {ObjectResp.EquipamentosNecessários.map((equip, index) => (
+                                    <li key={index}>{equip}</li>
+                                ))}
+                            </ul>  
+                            <h2 className="resp-title">Modo de Preparo:</h2>
+                            <ul className="resp-list">
+                                {ObjectResp.PassoPasso.map((step, index) => (
+                                    <li key={index}>{step}</li>
+                                ))}
+                            </ul>  
+                            <h2 className="resp-title">Informações Nutricionais:</h2>
+                            <ul className="resp-list">
+                                {ObjectResp.InformacaoNutricional.map((info, index) => (
+                                    <li key={index}>{info}</li>
+                                ))}
+                            </ul>  
+                        </div>
+                    )
+                ) : (
+                    null
+                )
+                }
+                <div className='api-resp'>
+
                 </div>
             </div>
             <div className="options adjust">

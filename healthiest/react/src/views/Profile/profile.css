@@ -21,6 +21,14 @@ h2{
     height: 40vh;
 }
 
+.logout{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 16px;
+    font-weight: 700;
+}
+
 .profile-img-container{
     height: 25rem;
     width: 20rem;

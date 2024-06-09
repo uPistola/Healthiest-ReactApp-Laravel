@@ -42,10 +42,6 @@ export default function Login() {
         handleSignup(e)
     };
 
-    const handleLogin = () => {
-        <Navigate to="/dashboard" />
-    }
-
     const handleSignup = (ev) => {
         ev.preventDefault();
         const payload = {
@@ -66,7 +62,29 @@ export default function Login() {
                     console.log(response.data.errors);
                 }
             })
-            };
+        };
+
+        
+
+    const login = (ev) => {
+        ev.preventDefault();
+        const payload = {
+            email: emailRef.current.value,
+            password: passwordRef.current.value,
+        };
+        console.log(payload)
+        axiosClient.post('/login',payload)
+            .then(({data}) => {
+                setToken(data.token);
+                setUser(data.user);
+            })
+            .catch(err => {
+                const response = err.response;
+                if(response && response.status === 422) {
+                    console.log(response.data.errors);
+                }
+            })
+        };
 
     return (
         <div className="content">
@@ -75,7 +93,7 @@ export default function Login() {
                 <div className="signup">
                     <div className="control">
                         <h2>LOGIN</h2>
-                        <form>
+                        <form onSubmit={login}>
                             <Input 
                                 label="Email" 
                                 placeholder="Digite seu email..."
@@ -87,15 +105,14 @@ export default function Login() {
                                 label="Senha" 
                                 placeholder="Digite sua senha..."
                                 name="senha"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
+                                ref={passwordRef}
                             />
-                        </form>
                         <span className="forgot-pass">Esqueceu sua senha?</span>
                         <div className="signup-footer">
                             <span className="change-page" onClick={() => setIsLogin(false)}>Criar Conta</span>
-                            <button className="btn-submit" onClick={() => handleLogin}>Entrar</button>
+                            <button className="btn-submit" type="submit">Entrar</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             ) : (
