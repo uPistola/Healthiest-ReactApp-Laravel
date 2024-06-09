@@ -2,7 +2,7 @@
     height: 60vh;
     display: flex;
     flex-direction: column;
-    background-image: url("../../../public/home.png");
+    background-image: url("/home.png");
     background-repeat: no-repeat;
     background-size: cover;
     align-items: center;
@@ -229,13 +229,13 @@ h1{
 }
 
 .card1{
-    background-image: url("../../../public/frango.jpeg");
+    background-image: url("/frango.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .card2{
-    background-image: url("../../../public/mousse.jpg");
+    background-image: url("/mousse.jpg");
     background-size: cover;
     background-repeat: no-repeat;
 }

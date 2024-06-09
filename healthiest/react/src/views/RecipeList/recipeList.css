@@ -72,7 +72,7 @@ h1{
 }
 
 .card1-recipe{
-    background-image: url("../../../public/frango.jpeg");
+    background-image: url("/frango.jpeg");
     background-size: cover;
     background-repeat: no-repeat;
 }
