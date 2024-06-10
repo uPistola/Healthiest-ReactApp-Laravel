@@ -29,7 +29,7 @@ const Recipe = () => {
         <div className="content">
             <Header />
                 <div className="recipe-container">
-                    <h1 className="recipe-title">FRANGO GRELHADO COM LIMÃO E ALHO</h1>
+                    <h1 className="recipe-title">Frango Salgado com Infusão de Ervas</h1>
                     <div className='recipe-sub-title'>
                         <span className='sub-title-item'><i className="fa-regular fa-clock margin"></i>1 HORA</span>   
                         <span className='sub-title-item'>.</span> 

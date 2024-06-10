@@ -5,58 +5,69 @@ namespace App\Http\Controllers\Api;
 use App\Http\Resources\RecipeResource;
 use App\Models\Recipes;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreRecipesRequest;
-use App\Http\Requests\UpdateRecipesRequest;
+use Illuminate\Http\Request;
 
 class RecipeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return RecipeResource::collection(
-            Recipes::query()->orderBy("id","desc")->paginate(10)
+            Recipes::query()->orderBy("id", "desc")->paginate(10)
         );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreRecipesRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'step_by_step' => 'required|array',
+            'ingredients' => 'required|array',
+            'equips' => 'required|array',
+            'description' => 'required|string',
+            'difficult' => 'required|string',
+            'img' => 'required|string',
+        ]);
 
-        $recipeList =  Recipes::create($data);
-        return new RecipeResource($recipeList);
+        $recipe = Recipes::create([
+            'name' => $validated['name'],
+            'step_by_step' => json_encode($validated['step_by_step']),
+            'ingredients' => json_encode($validated['ingredients']),
+            'equips' => json_encode($validated['equips']),
+            'description' => $validated['description'],
+            'difficult' => $validated['difficult'],
+            'img' => $validated['img'],
+        ]);
+
+        return response()->json(new RecipeResource($recipe), 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Recipes $recipes)
     {
         return new RecipeResource($recipes);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateRecipesRequest $request, Recipes $recipes)
+    public function update(Request $request, Recipes $recipes)
     {
-        $data = $request -> validated();
+        $data = $request->validate([
+            'name' => 'string|max:255',
+            'step_by_step' => 'array',
+            'ingredients' => 'array',
+            'equips' => 'array',
+            'description' => 'string',
+            'difficult' => 'string',
+            'img' => 'string',
+        ]);
+        
         $recipes->update($data);
 
         return new RecipeResource($recipes);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Recipes $recipes)
     {
         $recipes->delete();
 
-        return response("",204);
+        return response(null, 204);
     }
 }
+

@@ -32,16 +32,15 @@ const Dashboard = () => {
           messages: [
             { role: 'system', content:`
                 Você é um nutricionista e chef culinário. Sua tarefa é responder apenas perguntas relacionadas com comida, receitas, calorias, nutrição e tópicos relacionados à alimentação em geral. Para outras perguntas que não estejam relacionadas a esses temas, você deve responder que não pode fornecer essa informação.
-                Sempre retorne as respostas no formato de uma lista JSON contendo os seguintes campos: 'Ingredientes', 'Passo', 'EquipamentosNecessários' e "InformacaoNutricional", campo de InformacaoNutricional deve Proteinas.Caloria,Carboidratos valor e Gorduras Total: valor.Mantenha o mesmo formato para todos os valores.Certifique-se de criar um JSON bem formatado, sem quebras de linha, com arrays corretamente delimitados por colchetes. Verifique cuidadosamente a abertura e fechamento de parênteses e o uso de vírgulas.
+                Sempre retorne as respostas no formato de uma lista JSON contendo os seguintes campos: 'Ingredientes', 'Passo a Passo', 'Equipamentos Necessários' e "Informação Nutricional", campo de InformacaoNutricional deve Proteinas.Caloria,Carboidratos valor e Gorduras Total: valor.Mantenha o mesmo formato para todos os valores.Certifique-se de criar um JSON bem formatado, sem quebras de linha, com arrays corretamente delimitados por colchetes. Verifique cuidadosamente a abertura e fechamento de parênteses e o uso de vírgulas.
                 Se a pergunta não estiver relacionada a comida, receitas, calorias, nutrição ou tópicos similares, retorne uma mensagem de erro padrão no formato JSON: {'erro': 'Sua pergunta não está relacionada a alimentação e nutrição.'}
                 `},
             { role: 'user', content: input }
           ],
-          
           max_tokens: 2000
         }, {
           headers: {
-            'Authorization': `Bearer`,
+            'Authorization': `Bearer Key`,
             'Content-Type': 'application/json'
           }
         });
@@ -56,14 +55,29 @@ const Dashboard = () => {
         setResponse(null)
     }
 
-    var ObjectResp = response != null || response != "" ? JSON.parse(response) : null
+    const ObjectResp = response ? JSON.parse(response) : null;
 
-    console.log(response)
-    if(response != null) {
-        console.log(ObjectResp.InformacaoNutricional)
+    const renderList = (title, items) => (
+        <div key={title}>
+            <h2 className="resp-title">{title}:</h2>
+            <ul className="resp-list">
+                {items.map((item, index) => (
+                    <li key={index}>{item}</li>
+                ))}
+            </ul>
+        </div>
+    );
 
-    }
-
+    const renderObject = (title, obj) => (
+        <div key={title}>
+            <h2 className="resp-title">{title}:</h2>
+            <ul className="resp-list">
+                {Object.entries(obj).map(([subKey, subValue], index) => (
+                    <li key={index}>{`${subKey}: ${subValue}`}</li>
+                ))}
+            </ul>
+        </div>
+    );
 
     return (
         <div className="content">
@@ -73,7 +87,7 @@ const Dashboard = () => {
                 <div className="align"><p className="desc">Explore um mundo de sabores, descubra receitas artesanais e deixe o aroma da nossa paixão pela culinária preencher sua cozinha.</p></div>
                 <div className="align"><button className="create-recipe" onClick={generateRecipe}>CRIE SUA RECEITA</button></div>
             </div>
-            <div className={`input-chat adjust` + " " + (!open ? "hide" : null)}>
+            <div className={`input-chat adjust ${!open ? "hide" : ""}`}>
                 <form className="chat" onSubmit={handleSubmit} disabled={response != null}>
                     <textarea disabled={response != null} className="text-area" onChange={(e) => setInput(e.target.value)} placeholder="Escreva aqui a receita que deseja gerar, busque por ingredientes, tempo de preparo e dificuldade. Obs: Quanto mais detalhes inserir, melhor será a geração"></textarea>
                     {
@@ -85,7 +99,7 @@ const Dashboard = () => {
                     }
                 </form>
                 {response != null ? (
-                    ObjectResp.erro != undefined ? (
+                    ObjectResp.erro ? (
                         <div className="resp-container">
                             <div className="close-resp"><i className="fa-regular fa-circle-xmark" onClick={handleCloseResp}></i></div>
                             <h2 className="resp-title">Mensagem Imprópria!</h2>
@@ -94,39 +108,18 @@ const Dashboard = () => {
                     ) : (
                         <div className="resp-container">
                             <div className="close-resp"><i className="fa-regular fa-circle-xmark" onClick={handleCloseResp}></i></div>
-                            <h2 className="resp-title">Ingredientes:</h2>
-                            <ul className="resp-list">
-                                {ObjectResp.Ingredientes.map((ingrediente, index) => (
-                                    <li key={index}>{ingrediente}</li>
-                                ))}
-                            </ul>  
-                            <h2 className="resp-title">Equipamentos Necessários:</h2>
-                            <ul className="resp-list">
-                                {ObjectResp.EquipamentosNecessários.map((equip, index) => (
-                                    <li key={index}>{equip}</li>
-                                ))}
-                            </ul>  
-                            <h2 className="resp-title">Modo de Preparo:</h2>
-                            <ul className="resp-list">
-                                {ObjectResp.Passo.map((step, index) => (
-                                    <li key={index}>{step}</li>
-                                ))}
-                            </ul>  
-                            <h2 className="resp-title">Informações Nutricionais:</h2>
-                            <ul className="resp-list">
-                                {Object.entries(ObjectResp.InformacaoNutricional).map(([key, value], index) => (
-                                    <li key={index}>{`${key}: ${value}`}</li>
-                                ))}
-                            </ul>  
+                            {Object.entries(ObjectResp).map(([key, value]) => {
+                                if (Array.isArray(value)) {
+                                    return renderList(key, value);
+                                } else if (typeof value === 'object') {
+                                    return renderObject(key, value);
+                                }
+                                return null;
+                            })}
                         </div>
                     )
-                ) : (
-                    null
-                )
-                }
-                <div className='api-resp'>
-
-                </div>
+                ) : null}
+                <div className='api-resp'></div>
             </div>
             <div className="options adjust">
                 <div className="left-form">
