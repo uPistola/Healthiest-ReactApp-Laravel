@@ -1,8 +1,30 @@
 import Header from "../../components/header"
 import Footer from "../../components/footer"
 import '../RecipeList/recipeList.css'
+import { useEffect, useState } from "react"
+import axiosClient from "../../axios-client";
 
 const RecipeList = () => {
+
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        getRecipes();
+    },[])
+
+    const getRecipes = () => {
+        setLoading(true)
+        axiosClient.get('/recipes')
+        .then(({data}) => {
+            setLoading(false)
+            console.log(data)
+        })
+
+        .catch(() => {
+            setLoading(false)
+        })
+    }
+
     return (
         <div className="content">
             <Header></Header>

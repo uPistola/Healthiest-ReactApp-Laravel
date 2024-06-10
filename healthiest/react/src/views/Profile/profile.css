@@ -29,6 +29,11 @@ h2{
     font-weight: 700;
 }
 
+.logout:hover{
+    font-weight: 800;
+    cursor: pointer;
+}
+
 .profile-img-container{
     height: 25rem;
     width: 20rem;

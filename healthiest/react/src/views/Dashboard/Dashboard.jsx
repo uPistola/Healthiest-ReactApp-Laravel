@@ -11,7 +11,6 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [input, setInput] = useState('');
     const [response, setResponse] = useState(null);
-    const [loading, setLoading] = useState(false);
 
     const generateRecipe = () => {
         setOpen(!open);
@@ -25,17 +24,15 @@ const Dashboard = () => {
         navigate(`/recipe`); 
     };
 
-
-  
     const handleSubmit = async (event) => {
       event.preventDefault();
       try {
         const result = await axios.post('https://api.openai.com/v1/chat/completions', {
           model: 'gpt-3.5-turbo',
           messages: [
-            { role: 'system', content: `
+            { role: 'system', content:`
                 Você é um nutricionista e chef culinário. Sua tarefa é responder apenas perguntas relacionadas com comida, receitas, calorias, nutrição e tópicos relacionados à alimentação em geral. Para outras perguntas que não estejam relacionadas a esses temas, você deve responder que não pode fornecer essa informação.
-                Sempre retorne as respostas no formato de uma lista JSON contendo os seguintes campos: 'Ingredientes', 'PassoPasso', 'EquipamentosNecessários' e 'InformacaoNutricional'. Certifique-se de criar um JSON bem formatado, sem quebras de linha, com arrays corretamente delimitados por colchetes. Verifique cuidadosamente a abertura e fechamento de parênteses e o uso de vírgulas.
+                Sempre retorne as respostas no formato de uma lista JSON contendo os seguintes campos: 'Ingredientes', 'Passo', 'EquipamentosNecessários' e "InformacaoNutricional", campo de InformacaoNutricional deve Proteinas.Caloria,Carboidratos valor e Gorduras Total: valor.Mantenha o mesmo formato para todos os valores.Certifique-se de criar um JSON bem formatado, sem quebras de linha, com arrays corretamente delimitados por colchetes. Verifique cuidadosamente a abertura e fechamento de parênteses e o uso de vírgulas.
                 Se a pergunta não estiver relacionada a comida, receitas, calorias, nutrição ou tópicos similares, retorne uma mensagem de erro padrão no formato JSON: {'erro': 'Sua pergunta não está relacionada a alimentação e nutrição.'}
                 `},
             { role: 'user', content: input }
@@ -44,7 +41,7 @@ const Dashboard = () => {
           max_tokens: 2000
         }, {
           headers: {
-            'Authorization': `Bearer Key`,
+            'Authorization': `Bearer`,
             'Content-Type': 'application/json'
           }
         });
@@ -60,6 +57,13 @@ const Dashboard = () => {
     }
 
     var ObjectResp = response != null || response != "" ? JSON.parse(response) : null
+
+    console.log(response)
+    if(response != null) {
+        console.log(ObjectResp.InformacaoNutricional)
+
+    }
+
 
     return (
         <div className="content">
@@ -104,14 +108,14 @@ const Dashboard = () => {
                             </ul>  
                             <h2 className="resp-title">Modo de Preparo:</h2>
                             <ul className="resp-list">
-                                {ObjectResp.PassoPasso.map((step, index) => (
+                                {ObjectResp.Passo.map((step, index) => (
                                     <li key={index}>{step}</li>
                                 ))}
                             </ul>  
                             <h2 className="resp-title">Informações Nutricionais:</h2>
                             <ul className="resp-list">
-                                {ObjectResp.InformacaoNutricional.map((info, index) => (
-                                    <li key={index}>{info}</li>
+                                {Object.entries(ObjectResp.InformacaoNutricional).map(([key, value], index) => (
+                                    <li key={index}>{`${key}: ${value}`}</li>
                                 ))}
                             </ul>  
                         </div>
