@@ -60,7 +60,7 @@ h1{
     background-color: aliceblue;
 }
 
-.card1-recipe, .card2-recipe,.card3-recipe,.card4-recipe,.card5-recipe,.card6-recipe{
+.card-recipes{
     width: 32%;
     height: 50%;
     border-radius: 1.5rem;
@@ -68,38 +68,9 @@ h1{
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    background-size: cover;
+    background-repeat: no-repeat;
     
-}
-
-.card1-recipe{
-    background-image: url("/frango.jpeg");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-.card2-recipe{
-    background-image: url("/frangogrelhado.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-.card3-recipe{
-    background-image: url("/legume.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-.card4-recipe{
-    background-image: url("/macarrao.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-.card5-recipe{
-    background-image: url("/quinoa.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-.card6-recipe{
-    background-image: url("/mousse.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 
