@@ -51,53 +51,53 @@ const RecipeList = () => {
                         <button className="btn-trans">VER RECEITA</button>
                     </div>
                 </div>
-                <div className="card1-recipe">
+                <div className="card2-recipe">
                     <div className="card-content-profile">
-                        <span className="card-title-profile">Frango Salgado com Infusão de Ervas</span>
-                        <p className="card-desc-profile">Delicie-se com a rica e saborosa sinfonia de sabores com nosso saboroso frango com infusão de ervas</p>
+                        <span className="card-title-profile">Frango Grelhado com Limão e Alho</span>
+                        <p className="card-desc-profile">Experimente a mistura perfeita de limão picante e alho aromático com esta receita de frango assado</p>
                     </div>
                     <div className="card-footer-profile">
-                        <span className="recipe-diff">40 Min - FÁCIL - 3 porções</span>
+                        <span className="recipe-diff">1 hora - difícil - 4 porções</span>
                         <button className="btn-trans">VER RECEITA</button>
                     </div>
                 </div>                
-                <div className="card1-recipe">
+                <div className="card3-recipe">
                     <div className="card-content-profile">
-                        <span className="card-title-profile">Frango Salgado com Infusão de Ervas</span>
-                        <p className="card-desc-profile">Delicie-se com a rica e saborosa sinfonia de sabores com nosso saboroso frango com infusão de ervas</p>
+                        <span className="card-title-profile">Legumes Grelhados com Molho</span>
+                        <p className="card-desc-profile">Servidos com um molho chimichurri picante, são uma adição perfeita para seus encontros ao ar livre.</p>
                     </div>
                     <div className="card-footer-profile">
-                        <span className="recipe-diff">40 Min - FÁCIL - 3 porções</span>
+                        <span className="recipe-diff">25 Min -  médio - 6 porções</span>
                         <button className="btn-trans">VER RECEITA</button>
                     </div>
                 </div>                
-                <div className="card1-recipe">
+                <div className="card4-recipe">
                     <div className="card-content-profile">
-                        <span className="card-title-profile">Frango Salgado com Infusão de Ervas</span>
-                        <p className="card-desc-profile">Delicie-se com a rica e saborosa sinfonia de sabores com nosso saboroso frango com infusão de ervas</p>
+                        <span className="card-title-profile">Espaguete Aglio e Olio</span>
+                        <p className="card-desc-profile">Um prato minimalista, mas saboroso, com alho, azeite de oliva e um toque de flocos de pimenta vermelha.</p>
                     </div>
                     <div className="card-footer-profile">
-                        <span className="recipe-diff">40 Min - FÁCIL - 3 porções</span>
+                        <span className="recipe-diff">20 min - fácil - 2 porções</span>
                         <button className="btn-trans">VER RECEITA</button>
                     </div>
                 </div>                
-                <div className="card1-recipe">
+                <div className="card5-recipe">
                     <div className="card-content-profile">
-                        <span className="card-title-profile">Frango Salgado com Infusão de Ervas</span>
-                        <p className="card-desc-profile">Delicie-se com a rica e saborosa sinfonia de sabores com nosso saboroso frango com infusão de ervas</p>
+                        <span className="card-title-profile">Quinoa vegetariana salteada</span>
+                        <p className="card-desc-profile">Rápido, saudável e repleto de sabores, é perfeito para um jantar saudável durante a semana.</p>
                     </div>
                     <div className="card-footer-profile">
-                        <span className="recipe-diff">40 Min - FÁCIL - 3 porções</span>
+                        <span className="recipe-diff">30 Min - fácil - 3 porções</span>
                         <button className="btn-trans">VER RECEITA</button>
                     </div>
                 </div>                
-                <div className="card1-recipe">
+                <div className="card6-recipe">
                     <div className="card-content-profile">
-                        <span className="card-title-profile">Frango Salgado com Infusão de Ervas</span>
-                        <p className="card-desc-profile">Delicie-se com a rica e saborosa sinfonia de sabores com nosso saboroso frango com infusão de ervas</p>
+                        <span className="card-title-profile">Mousse de Chocolate</span>
+                        <p className="card-desc-profile">Rápido e repleto de sabores, é perfeito para uma sobremesa durante a semana.</p>
                     </div>
                     <div className="card-footer-profile">
-                        <span className="recipe-diff">40 Min - FÁCIL - 3 porções</span>
+                        <span className="recipe-diff">40 Min -  médio - 4 porções</span>
                         <button className="btn-trans">VER RECEITA</button>
                     </div>
                 </div>                
